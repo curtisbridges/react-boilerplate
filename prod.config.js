@@ -2,19 +2,11 @@ const path = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-
-if (process.env.NODE_ENV === 'test') {
-  require('dotenv').config({ path: '.env.test' })
-} else if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config({ path: '.env.development' })
-}
-
 module.exports = (env) => {
   const CSSExtract = new MiniCssExtractPlugin({ filename: 'styles.css' })
 
   return {
-    mode: 'development',
+    mode: 'production',
     entry: './src/app.js',
     output: {
       path: path.join(__dirname, 'public', 'dist'),
@@ -48,7 +40,7 @@ module.exports = (env) => {
         },
       ],
     },
-    devtool: 'eval',
+    devtool: 'source-map',
     devServer: {
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
